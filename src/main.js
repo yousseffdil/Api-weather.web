@@ -10,7 +10,6 @@ const icon = document.createElement('img');
 // Afageix-ho unas classes per pdoer editar des del JS mes comodament
 cityName.classList.add('name');
 icon.classList.add('icon');
-searchInput.value = "Olot"
 
 // Aquest addeventListener es el que ens ajudar a buscar tot, basicament es un addEventListener amb un IF el cual s'encarrega de mapajar l'enter, en cas de clicar
 // Enter fara tot lo que estigui dins
@@ -31,17 +30,18 @@ searchInput.addEventListener('keyup', (event) => {
                 const temp = Math.round(data.main.temp);
                 Info.innerHTML = `<h1 class="tmp">${temp} °C<h1>`;
                 const iconCode = data.weather[0].icon;
-                const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png?color=ffffff`;
+                const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
                 icon.setAttribute('src', iconUrl);
                 Info.appendChild(cityName);
                 Info.appendChild(icon);
             })
-            .catch(error => console.log(error) ||  alert("Ingresa una ciudad o pueblo valido") );
+            .catch(error => console.log(error) || alert("Ingresa una ciudad o pueblo valido"));
 
         // Aquest fetch s'encarrega de buscar i mostrar la previsio de cada 3h i la previsio dels 5 dias de la semana.
         fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`)
             .then(response => response.json())
             .then(data => {
+
                 // Reiniciem el divisor per cada busqueda que es fagui per poder afaguir mes coses
                 botHours.innerHTML = "";
 
@@ -50,8 +50,8 @@ searchInput.addEventListener('keyup', (event) => {
                 forecasts.forEach(forecast => {
                     const temp = Math.round(forecast.main.temp);
                     const iconCode = forecast.weather[0].icon;
-                    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png?color=#ffffff`;
-                    const timestamp = new Date(forecast.dt_txt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
+                    const timestamp = new Date(forecast.dt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                     const forecastElement = document.createElement('div');
                     forecastElement.classList.add('time-hour');
                     forecastElement.innerHTML = `
@@ -61,13 +61,13 @@ searchInput.addEventListener('keyup', (event) => {
                     `;
                     botHours.appendChild(forecastElement);
                 });
-                
+
                 // Reiniciem el divisor
                 slideRight.innerHTML = "";
                 const dailyForecasts = data.list.filter((_forecast, index) => index % 8 === 0);
                 // Bloc de codi on s'hafagueix tot lo de la semana
                 dailyForecasts.forEach(forecast => {
-                    const weekday = new Date(forecast.dt_txt).toLocaleDateString([], { weekday: 'long' });
+                    const weekday = new Date(forecast.dt).toLocaleDateString([], { weekday: 'long' });
                     const tempMin = Math.round(forecast.main.temp_min);
                     const tempMax = Math.round(forecast.main.temp_max);
                     const iconCode = forecast.weather[0].icon;
@@ -90,9 +90,9 @@ searchInput.addEventListener('keyup', (event) => {
             .catch(error => console.error(error));
 
 
-            // Funcio que ens crea el grafic d'humetat amb la llibreria CHART.js
+        // Funcio que ens crea el grafic d'humetat amb la llibreria CHART.js
         function showHumidityChart(humidityData) {
-            const labels = humidityData.map(data => new Date(data.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+            const labels = humidityData.map(data => new Date(data.dt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
             const humidityValues = humidityData.map(data => data.main.humidity);
 
             const chartData = {

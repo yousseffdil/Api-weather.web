@@ -9,10 +9,11 @@
 
 }
 
-body{
+body {
     background-color: rgb(11, 19, 30);
 
 }
+
 .container {
     opacity: 1;
     padding: 1%;
@@ -98,7 +99,9 @@ body{
 }
 
 .container .info img.icon {
-    width: 100px;
+    margin-top: -5%;
+    margin-right: 2%;
+    float: right;
     transition: 500ms;
 }
 
@@ -160,4 +163,3 @@ body{
     display: flex;
     justify-content: center;
 }
-
