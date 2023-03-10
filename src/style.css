@@ -26,7 +26,7 @@ body {
 .container .search {
     position: absolute;
     background-color: rgba(32, 43, 59, 1);
-    width: 70%;
+    width: 74%;
     height: 5vh;
     border-radius: 17px;
     display: flex;
@@ -44,6 +44,7 @@ body {
 }
 
 .container .slide-right {
+    transition: 600ms;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,6 +58,7 @@ body {
 }
 
 .container .bot-hours {
+    transition: 600ms;
     position: absolute;
     background-color: rgba(32, 43, 59, 1);
     border-radius: 17px;
@@ -67,22 +69,26 @@ body {
 }
 
 .container .bot-info {
+    transition: 600ms;
+
     position: absolute;
     width: 74%;
-    height: 39vh;
+    height: 41.5vh;
     top: 545px;
     background: #202B3B;
     border-radius: 17px;
 }
 
 .container .info {
+    transition: 600ms;
     position: absolute;
     background-color: transparent;
-    width: 70%;
-    margin-left: 5%;
-    height: 30vh;
+    width: 72%;
+    height: 20vh;
     top: 9%;
-
+    background-color: rgba(32, 43, 59, 1);
+    border-radius: 17px;
+    padding: 1%;
 }
 
 .container .info h1.tmp {
@@ -95,13 +101,14 @@ body {
 .container .info h1.name {
     font-size: 50px;
     transition: 500ms;
+    margin-top: 1%;
 
 }
 
 .container .info img.icon {
+    position: absolute;
     margin-top: -5%;
-    margin-right: 2%;
-    float: right;
+    right: 2%;
     transition: 500ms;
 }
 
@@ -119,6 +126,7 @@ body {
 .container .bot-hours {
     display: flex;
     flex-direction: row;
+    margin-top: .3%;
 }
 
 .container .bot-hours .time-hour {
@@ -138,13 +146,6 @@ body {
     width: 70px;
 }
 
-.container .search span {
-    align-self: center;
-    float: right;
-    margin-right: 2%;
-    cursor: pointer;
-}
-
 
 .Prevision-semana {
     transition: 500ms;
@@ -162,4 +163,11 @@ body {
 .Prevision-semana img {
     display: flex;
     justify-content: center;
+}
+
+.info:hover,
+.bot-hours:hover,
+.bot-info:hover,
+.slide-right:hover {
+    transform: scale(1.01);
 }

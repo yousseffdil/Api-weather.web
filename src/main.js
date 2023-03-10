@@ -41,17 +41,15 @@ searchInput.addEventListener('keyup', (event) => {
         fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`)
             .then(response => response.json())
             .then(data => {
-
                 // Reiniciem el divisor per cada busqueda que es fagui per poder afaguir mes coses
                 botHours.innerHTML = "";
-
                 const forecasts = data.list.filter((_forecast, index) => index % 8 === 0);
                 // Bloc de codi que ens ajuda a mostrar-ho tot dins del divisor
                 forecasts.forEach(forecast => {
                     const temp = Math.round(forecast.main.temp);
                     const iconCode = forecast.weather[0].icon;
-                    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
-                    const timestamp = new Date(forecast.dt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+                    const timestamp = new Date(forecast.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                     const forecastElement = document.createElement('div');
                     forecastElement.classList.add('time-hour');
                     forecastElement.innerHTML = `
@@ -71,7 +69,7 @@ searchInput.addEventListener('keyup', (event) => {
                     const tempMin = Math.round(forecast.main.temp_min);
                     const tempMax = Math.round(forecast.main.temp_max);
                     const iconCode = forecast.weather[0].icon;
-                    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
+                    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
                     const description = forecast.weather[0].description;
 
                     const forecastElement = document.createElement('div');
@@ -92,7 +90,7 @@ searchInput.addEventListener('keyup', (event) => {
 
         // Funcio que ens crea el grafic d'humetat amb la llibreria CHART.js
         function showHumidityChart(humidityData) {
-            const labels = humidityData.map(data => new Date(data.dt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+            const labels = humidityData.map(data => new Date(data.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
             const humidityValues = humidityData.map(data => data.main.humidity);
 
             const chartData = {
@@ -138,7 +136,7 @@ searchInput.addEventListener('keyup', (event) => {
             };
 
             const chartCanvas = document.createElement('canvas');
-            chartCanvas.width = 00;
+            chartCanvas.width = 800;
             chartCanvas.height = 200;
             const chartContext = chartCanvas.getContext('2d');
 
