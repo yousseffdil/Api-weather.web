@@ -49,7 +49,7 @@ searchInput.addEventListener('keyup', (event) => {
                     const temp = Math.round(forecast.main.temp);
                     const iconCode = forecast.weather[0].icon;
                     const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-                    const timestamp = new Date(forecast.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    const timestamp = new Date(forecast.dt * 900).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                     const forecastElement = document.createElement('div');
                     forecastElement.classList.add('time-hour');
                     forecastElement.innerHTML = `
