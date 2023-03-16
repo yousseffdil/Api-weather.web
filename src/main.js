@@ -43,26 +43,44 @@ searchInput.addEventListener('keyup', (event) => {
             .then(data => {
                 // Reiniciem el divisor per cada busqueda que es fagui per poder afaguir mes coses
                 botHours.innerHTML = "";
-                const forecasts = data.list.filter((_forecast, index) => index % 8 === 0);
+                //const forecasts = data.list.filter((_forecast, index) => index % 8 === 0);
+                const forecasts = data.list;
+
+                let fecha = "";
+
                 // Bloc de codi que ens ajuda a mostrar-ho tot dins del divisor
                 forecasts.forEach(forecast => {
                     const temp = Math.round(forecast.main.temp);
                     const iconCode = forecast.weather[0].icon;
                     const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-                    const timestamp = new Date(forecast.dt * 900).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    const timestamp = new Date(forecast.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                    const diaAnterior = fecha;
+                    fecha = new Date(forecast.dt_txt).toLocaleDateString([]);
+
                     const forecastElement = document.createElement('div');
                     forecastElement.classList.add('time-hour');
+
                     forecastElement.innerHTML = `
+                       
                         <h3 class="time">${timestamp}</h3>
                         <img class="icon" src="${iconUrl}" alt="${forecast.weather[0].description}">
                         <h3 class="temp">${temp} °C</h3>
+                        
                     `;
+
+                    if (diaAnterior != fecha) {
+                        botHours.innerHTML += `
+                        <h2 class= fecha> ${fecha}</h2>
+                        `;
+                    }
+
                     botHours.appendChild(forecastElement);
                 });
 
                 // Reiniciem el divisor
                 slideRight.innerHTML = "";
-                const dailyForecasts = data.list.filter((_forecast, index) => index % 8 === 0);
+                const dailyForecasts = data.list;
                 // Bloc de codi on s'hafagueix tot lo de la semana
                 dailyForecasts.forEach(forecast => {
                     const weekday = new Date(forecast.dt).toLocaleDateString([], { weekday: 'long' });
@@ -82,7 +100,7 @@ searchInput.addEventListener('keyup', (event) => {
                     slideRight.appendChild(forecastElement);
                     // Fem un callback per cridar la funcio del grafic
                     const humidityData = data.list.filter((_forecast, index) => index % 8 === 0);
-                    showHumidityChart(humidityData);
+                    // showHumidityChart(humidityData);
                 });
             })
             .catch(error => console.error(error));
