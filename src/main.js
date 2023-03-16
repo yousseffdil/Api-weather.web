@@ -62,7 +62,6 @@ searchInput.addEventListener('keyup', (event) => {
                     forecastElement.classList.add('time-hour');
 
                     forecastElement.innerHTML = `
-                       
                         <h3 class="time">${timestamp}</h3>
                         <img class="icon" src="${iconUrl}" alt="${forecast.weather[0].description}">
                         <h3 class="temp">${temp} °C</h3>
