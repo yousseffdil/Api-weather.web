@@ -15,7 +15,7 @@ icon.classList.add('icon');
 // Aquest addeventListener es el que ens ajudar a buscar tot, basicament es un addEventListener amb un IF el cual s'encarrega de mapajar l'enter, en cas de clicar
 // Enter fara tot lo que estigui dins
 searchInput.addEventListener('keyup', (event) => {
-    if (event.keyCode === 13) { 
+    if (event.keyCode === 13) {
         // API-KEY 
         const apiKey = 'aba6ff9d6de967d5eac6fd79114693cc';
         // Agafem el que escribim dins del input com a ciudad
